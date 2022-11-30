@@ -31,7 +31,7 @@ jobs:
       - name: installing python3.10
         uses: actions/setup-python@v1
         with:
-          python-version: 3.9
+          python-version: 3.9.15
 
       - name: installing pipenv and other dependencies
         run: |
@@ -42,4 +42,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run tests
-        run: pytest -v
+        run: pytest -vsudo

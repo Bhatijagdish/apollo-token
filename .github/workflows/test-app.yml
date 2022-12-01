@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   cypress-run:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 #    strategy:
 #      matrix:
 #        os: [, windows-latest, macOS-latest]
@@ -28,33 +28,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
-
-
-      # Runs a single command using the runners shell
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6
-          # Only install what we need to run the client in-action and tests against it
-          # format:    `--filter <packagename>...`
-          run_install: |
-            - args: [--filter myclient... --filter cypress-tests...]
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-          # we have already installed all dependencies above
-          install: false
-          command: pnpm --dir cypress/ cypress:ci
-          start: pnpm --dir myclient/ dev
-          wait-on: 'https://localhost:3000'
-
-      # - name: Cypress run
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     install: false
-      #     working-directory: client
-      #     build: npm run build
-      #     start: npm start
-
-      
+        # Install NPM dependencies, cache them correctly
+        # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v4      
